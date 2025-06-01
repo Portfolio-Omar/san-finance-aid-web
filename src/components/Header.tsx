@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -17,17 +19,19 @@ export const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+    <header className="bg-background/95 backdrop-blur-md shadow-sm border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 gradient-navy rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg sm:text-xl">SF</span>
-            </div>
+          <Link to="/" className="flex items-center space-x-3">
+            <img 
+              src="/logo.jpg" 
+              alt="SAN Finance Logo" 
+              className="w-12 h-12 sm:w-16 sm:h-16 object-contain rounded-lg"
+            />
             <div className="hidden sm:block">
               <h1 className="text-xl sm:text-2xl font-bold text-gradient">SAN Finance</h1>
-              <p className="text-xs text-gray-600">Your Financial Aid</p>
+              <p className="text-xs text-muted-foreground">Your Financial Aid</p>
             </div>
           </Link>
 
@@ -38,19 +42,34 @@ export const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(item.href) ? 'text-primary' : 'text-gray-700'
+                  isActive(item.href) ? 'text-primary' : 'text-foreground'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={toggleTheme}
+              className="mr-2"
+            >
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
             <Button className="gradient-gold text-white hover:opacity-90 transition-opacity">
               Apply Now
             </Button>
           </nav>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
             <Button
               variant="ghost"
               size="sm"
@@ -63,7 +82,7 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t">
+          <div className="md:hidden py-4 border-t animate-fade-in">
             <div className="flex flex-col space-y-3">
               {navigation.map((item) => (
                 <Link
@@ -72,7 +91,7 @@ export const Header = () => {
                   className={`text-base font-medium px-2 py-2 rounded-md transition-colors ${
                     isActive(item.href) 
                       ? 'text-primary bg-primary/10' 
-                      : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                      : 'text-foreground hover:text-primary hover:bg-accent'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

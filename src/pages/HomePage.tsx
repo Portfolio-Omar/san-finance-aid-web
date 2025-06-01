@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { WelcomePopup } from '@/components/WelcomePopup';
+import { FAQ } from '@/components/FAQ';
 
 const HomePage = () => {
   const services = [
@@ -59,26 +61,29 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen">
+      <WelcomePopup />
+      
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-20 lg:py-32">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section 
+        className="relative text-white py-20 lg:py-32 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url('/bg.jpg')"
+        }}
+      >
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
-            <div className="w-20 h-20 mx-auto mb-6 gradient-gold rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-3xl">SF</span>
-            </div>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
               Your Financial Aid
             </h1>
-            <p className="text-xl sm:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto">
+            <p className="text-xl sm:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto animate-fade-in">
               Fast, secure, and personalized financial support for individuals and businesses.
             </p>
           </div>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in">
             <Button 
               size="lg" 
-              className="gradient-gold text-white hover:opacity-90 transition-opacity text-lg px-8 py-4"
+              className="gradient-gold text-white hover:opacity-90 transition-opacity text-lg px-8 py-4 animate-scale-in"
               asChild
             >
               <Link to="/contact">Apply for a Loan</Link>
@@ -86,7 +91,7 @@ const HomePage = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="bg-white/10 border-white/30 text-white hover:bg-white/20 text-lg px-8 py-4"
+              className="bg-white/10 border-white/30 text-white hover:bg-white/20 text-lg px-8 py-4 animate-scale-in"
               asChild
             >
               <Link to="/services">Get Financial Advice</Link>
@@ -96,38 +101,43 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-16 lg:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-8 animate-fade-in">
               About SAN Finance
             </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              SAN Finance is an online-based financial services provider offering flexible loan solutions and expert financial consulting. We support individuals and businesses through secure money lending and debt management, providing transparent, professional financial services tailored to your unique needs.
-            </p>
+            <div className="space-y-6 text-lg text-muted-foreground leading-relaxed animate-fade-in">
+              <p>
+                SAN Finance stands as a premier online-based financial services provider, dedicated to transforming the way individuals and businesses access financial solutions. With years of experience in the financial sector, we have built our reputation on trust, transparency, and unwavering commitment to our clients' financial success. Our comprehensive suite of services encompasses flexible loan solutions, expert financial consulting, and personalized debt management strategies.
+              </p>
+              <p>
+                At SAN Finance, we understand that every financial journey is unique. That's why we offer tailored solutions ranging from personal loans for immediate needs to sophisticated corporate financing for established businesses. Our team of experienced financial advisors works closely with each client to understand their specific requirements, ensuring that every financial product we offer aligns perfectly with their goals. We pride ourselves on our transparent approach—no hidden fees, clear terms, and honest communication throughout every step of your financial journey.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Services Overview */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-24 bg-accent/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               Our Services
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive financial solutions designed to meet your personal and business needs.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:scale-105 animate-fade-in">
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{service.title}</h3>
-                  <p className="text-gray-600 mb-4 text-sm">{service.description}</p>
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">{service.title}</h3>
+                  <p className="text-muted-foreground mb-4 text-sm">{service.description}</p>
                   <Badge variant="secondary" className="gradient-gold text-white">
                     {service.rate}
                   </Badge>
@@ -145,23 +155,23 @@ const HomePage = () => {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section className="py-16 lg:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               Why Choose SAN Finance?
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               We're committed to providing transparent, flexible, and professional financial services.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUs.map((item, index) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center animate-fade-in hover:scale-105 transition-transform duration-300">
                 <div className="text-5xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
+                <h3 className="text-xl font-semibold mb-3 text-foreground">{item.title}</h3>
+                <p className="text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>
@@ -169,34 +179,37 @@ const HomePage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 lg:py-24 bg-gray-50">
+      <section className="py-16 lg:py-24 bg-accent/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               What Our Clients Say
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               Real experiences from satisfied customers.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+              <Card key={index} className="hover:shadow-lg transition-shadow duration-300 animate-fade-in">
                 <CardContent className="p-6">
                   <div className="flex mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <span key={i} className="text-yellow-400 text-xl">★</span>
                     ))}
                   </div>
-                  <p className="text-gray-600 mb-4 italic">"{testimonial.comment}"</p>
-                  <p className="font-semibold text-gray-900">- {testimonial.name}</p>
+                  <p className="text-muted-foreground mb-4 italic">"{testimonial.comment}"</p>
+                  <p className="font-semibold text-foreground">- {testimonial.name}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQ />
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24 gradient-navy text-white">
