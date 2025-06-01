@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Facebook, Instagram } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const ContactPage = () => {
   const { toast } = useToast();
@@ -19,13 +19,49 @@ const ContactPage = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting SAN Finance. We'll get back to you within 24 hours.",
-    });
-    setFormData({ fullName: '', email: '', phoneNumber: '', loanType: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('contact_submissions')
+        .insert([
+          {
+            full_name: formData.fullName,
+            email: formData.email,
+            phone: formData.phoneNumber,
+            loan_type: formData.loanType || null,
+            message: formData.message
+          }
+        ]);
+
+      if (error) {
+        console.error('Error submitting form:', error);
+        toast({
+          title: "Error",
+          description: "There was an error submitting your message. Please try again.",
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Message Sent!",
+          description: "Thank you for contacting SAN Finance. We'll get back to you within 24 hours.",
+        });
+        setFormData({ fullName: '', email: '', phoneNumber: '', loanType: '', message: '' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "There was an error submitting your message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleWhatsApp = () => {
@@ -222,8 +258,9 @@ const ContactPage = () => {
                   <Button 
                     type="submit" 
                     className="w-full gradient-gold text-white hover:opacity-90 transition-opacity py-3 text-lg"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
                 </form>
               </CardContent>
