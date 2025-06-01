@@ -43,17 +43,17 @@ const HomePage = () => {
 
   const testimonials = [
     {
-      name: 'Sarah M.',
+      name: 'Nathan B.',
       comment: 'SAN Finance helped me expand my business with their flexible business loan. Professional service!',
       rating: 5
     },
     {
-      name: 'John D.',
+      name: 'Omar K.',
       comment: 'Quick processing and transparent terms. Highly recommend their personal loan services.',
       rating: 5
     },
     {
-      name: 'Maria K.',
+      name: 'David M.',
       comment: 'The financial consultancy service helped me get back on track with my finances.',
       rating: 5
     }
