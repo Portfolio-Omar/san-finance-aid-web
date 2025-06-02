@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Trash2, Mail, Phone, Calendar, User, MessageSquare, Eye } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { BlogEditor } from '@/components/BlogEditor';
+import { BlogList } from '@/components/BlogList';
 
 interface ContactSubmission {
   id: string;
@@ -21,6 +23,18 @@ interface ContactSubmission {
   is_read: boolean;
 }
 
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  extract: string;
+  content: string;
+  image_url?: string;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 const AdminPage = () => {
   const [pin, setPin] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,6 +42,9 @@ const AdminPage = () => {
   const [selectedSubmission, setSelectedSubmission] = useState<ContactSubmission | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentView, setCurrentView] = useState<'list' | 'editor'>('list');
+  const [editingPost, setEditingPost] = useState<BlogPost | undefined>(undefined);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   const { toast } = useToast();
 
   const handlePinSubmit = (e: React.FormEvent) => {
@@ -128,6 +145,22 @@ const AdminPage = () => {
     }
   };
 
+  const handleBlogSave = () => {
+    setCurrentView('list');
+    setEditingPost(undefined);
+    setRefreshTrigger(prev => prev + 1);
+  };
+
+  const handleEditPost = (post: BlogPost) => {
+    setEditingPost(post);
+    setCurrentView('editor');
+  };
+
+  const handleNewPost = () => {
+    setEditingPost(undefined);
+    setCurrentView('editor');
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchSubmissions();
@@ -188,12 +221,13 @@ const AdminPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Admin Panel</h1>
-          <p className="text-muted-foreground">Manage customer enquiries and submissions</p>
+          <p className="text-muted-foreground">Manage customer enquiries, blog posts, and content</p>
         </div>
 
         <Tabs defaultValue="enquiries" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 max-w-md">
+          <TabsList className="grid w-full grid-cols-2 max-w-md">
             <TabsTrigger value="enquiries">Customer Enquiries</TabsTrigger>
+            <TabsTrigger value="blog">Blog Management</TabsTrigger>
           </TabsList>
 
           <TabsContent value="enquiries" className="mt-6">
@@ -270,6 +304,29 @@ const AdminPage = () => {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="blog" className="mt-6">
+            {currentView === 'list' ? (
+              <BlogList 
+                onEdit={handleEditPost}
+                onNew={handleNewPost}
+                refreshTrigger={refreshTrigger}
+              />
+            ) : (
+              <div className="space-y-4">
+                <Button 
+                  variant="outline" 
+                  onClick={() => setCurrentView('list')}
+                >
+                  ← Back to Blog List
+                </Button>
+                <BlogEditor 
+                  post={editingPost}
+                  onSave={handleBlogSave}
+                />
+              </div>
+            )}
           </TabsContent>
         </Tabs>
 
