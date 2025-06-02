@@ -1,6 +1,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Map from '@/components/Map';
 
 const AboutPage = () => {
   const teamMembers = [
@@ -57,6 +58,29 @@ const AboutPage = () => {
     }
   ];
 
+  const historyTimeline = [
+    {
+      year: '2023',
+      title: 'Foundation & Registration',
+      description: 'SAN Finance was founded by Andrew Shota Daka and officially registered with PACRA (Patents and Companies Registration Agency) in Zambia. The company began operations with a vision to empower individuals and businesses through accessible financial solutions.'
+    },
+    {
+      year: '2023',
+      title: 'First 100 Clients',
+      description: 'Within our first year, we successfully served over 100 clients, providing loans and financial consultancy services. This milestone demonstrated our commitment to accessible finance and established our reputation in the Zambian market.'
+    },
+    {
+      year: '2023-2024',
+      title: 'Community Engagement',
+      description: 'We launched community financial literacy projects, educating individuals and small businesses about responsible borrowing, financial planning, and business management. These initiatives reflect our commitment to empowering African communities.'
+    },
+    {
+      year: '2024',
+      title: 'Team Expansion',
+      description: 'Our team grew to include specialized professionals in accounting, marketing, and business development, strengthening our capacity to serve clients and expand our impact across Zambia.'
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -105,15 +129,15 @@ const AboutPage = () => {
               </CardContent>
             </Card>
 
-            {/* History */}
+            {/* Impact */}
             <Card className="text-center animate-fade-in">
               <CardHeader>
-                <div className="text-5xl mb-4">📈</div>
-                <CardTitle className="text-2xl text-foreground">Our History</CardTitle>
+                <div className="text-5xl mb-4">💼</div>
+                <CardTitle className="text-2xl text-foreground">Our Impact</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Founded in 2023 by Andrew Shota Daka and registered with PACRA. We've served over 100 clients and actively participate in community financial literacy projects.
+                  Serving over 100 clients since 2023, actively participating in financial literacy projects, and contributing to Zambia's economic development.
                 </p>
               </CardContent>
             </Card>
@@ -131,7 +155,7 @@ const AboutPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 animate-fade-in">
+              <Card key={index} className="text-center hover:shadow-lg transition-shadow duration-300 animate-fade-in border-l-4 border-l-gold">
                 <CardHeader>
                   <div className="text-4xl mb-4">{value.icon}</div>
                   <CardTitle className="text-xl text-foreground">{value.title}</CardTitle>
@@ -141,6 +165,78 @@ const AboutPage = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Company History */}
+      <section className="py-16 lg:py-24 bg-accent/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Our Journey
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              From founding to becoming a trusted financial partner in Zambia.
+            </p>
+          </div>
+
+          <div className="space-y-8">
+            {historyTimeline.map((milestone, index) => (
+              <Card key={index} className="animate-fade-in hover:shadow-md transition-shadow border-l-4 border-l-san-blue">
+                <CardHeader>
+                  <div className="flex items-center gap-4">
+                    <Badge className="bg-gold text-black font-bold text-lg px-3 py-1">
+                      {milestone.year}
+                    </Badge>
+                    <CardTitle className="text-xl text-foreground">{milestone.title}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">{milestone.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Location & Map */}
+      <section className="py-16 lg:py-24 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Find Us in Lusaka
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Visit our office in the heart of Zambia's capital city.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <Card className="border-l-4 border-l-green-500">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">Office Location</h3>
+                  <p className="text-muted-foreground mb-2">📍 Lusaka, Zambia</p>
+                  <p className="text-muted-foreground mb-2">📞 Contact us for exact address</p>
+                  <p className="text-muted-foreground">🕒 Business Hours: Monday - Friday, 8:00 AM - 5:00 PM</p>
+                </CardContent>
+              </Card>
+              <Card className="border-l-4 border-l-gold">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">Why Lusaka?</h3>
+                  <p className="text-muted-foreground">
+                    Strategically located in Zambia's economic hub, our Lusaka office allows us to serve 
+                    clients across the country while staying connected to the financial centers and 
+                    business communities that drive economic growth.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+            <div>
+              <Map />
+            </div>
           </div>
         </div>
       </section>
@@ -175,7 +271,7 @@ const AboutPage = () => {
           {/* Team Members */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {teamMembers.map((member, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300 animate-fade-in">
+              <Card key={index} className="hover:shadow-lg transition-shadow duration-300 animate-fade-in border-t-4 border-t-gold">
                 <CardHeader className="text-center">
                   <div className="text-6xl mb-4">{member.icon}</div>
                   <CardTitle className="text-xl text-foreground">{member.name}</CardTitle>
@@ -205,7 +301,7 @@ const AboutPage = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
             <div className="animate-fade-in">
               <div className="text-4xl font-bold text-gold mb-2">100+</div>
               <p className="text-blue-100">Clients Served</p>
@@ -216,7 +312,11 @@ const AboutPage = () => {
             </div>
             <div className="animate-fade-in">
               <div className="text-4xl font-bold text-gold mb-2">4</div>
-              <p className="text-blue-100">Core Values</p>
+              <p className="text-blue-100">Team Members</p>
+            </div>
+            <div className="animate-fade-in">
+              <div className="text-4xl font-bold text-gold mb-2">∞</div>
+              <p className="text-blue-100">Growth Potential</p>
             </div>
           </div>
         </div>

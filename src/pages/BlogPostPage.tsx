@@ -4,7 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
-import { Calendar, ArrowLeft } from 'lucide-react';
+import { Calendar, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Copy, Check } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface BlogPost {
   id: string;
@@ -23,6 +24,8 @@ const BlogPostPage = () => {
   const [post, setPost] = useState<BlogPost | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -61,6 +64,44 @@ const BlogPostPage = () => {
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const getCurrentUrl = () => {
+    return window.location.href;
+  };
+
+  const shareToFacebook = () => {
+    const url = encodeURIComponent(getCurrentUrl());
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+  };
+
+  const shareToTwitter = () => {
+    const url = encodeURIComponent(getCurrentUrl());
+    const text = encodeURIComponent(`Check out this article: ${post?.title}`);
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+  };
+
+  const shareToLinkedIn = () => {
+    const url = encodeURIComponent(getCurrentUrl());
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(getCurrentUrl());
+      setCopied(true);
+      toast({
+        title: "Link copied!",
+        description: "The article link has been copied to your clipboard.",
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {
+      toast({
+        title: "Failed to copy",
+        description: "Could not copy the link to clipboard.",
+        variant: "destructive",
+      });
+    }
   };
 
   if (isLoading) {
@@ -129,6 +170,56 @@ const BlogPostPage = () => {
               <p className="text-xl text-muted-foreground">
                 {post.extract}
               </p>
+            </div>
+
+            {/* Sharing Section */}
+            <div className="mb-8 p-4 bg-gray-50 rounded-lg border">
+              <div className="flex items-center gap-2 mb-3">
+                <Share2 className="h-5 w-5 text-gold" />
+                <span className="font-semibold text-gray-900">Share this article</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  onClick={shareToFacebook}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 hover:bg-blue-50 hover:border-blue-500"
+                >
+                  <Facebook className="h-4 w-4 text-blue-600" />
+                  Facebook
+                </Button>
+                <Button
+                  onClick={shareToTwitter}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 hover:bg-blue-50 hover:border-blue-400"
+                >
+                  <Twitter className="h-4 w-4 text-blue-500" />
+                  Twitter
+                </Button>
+                <Button
+                  onClick={shareToLinkedIn}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 hover:bg-blue-50 hover:border-blue-700"
+                >
+                  <Linkedin className="h-4 w-4 text-blue-700" />
+                  LinkedIn
+                </Button>
+                <Button
+                  onClick={copyToClipboard}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 hover:bg-green-50 hover:border-green-500"
+                >
+                  {copied ? (
+                    <Check className="h-4 w-4 text-green-600" />
+                  ) : (
+                    <Copy className="h-4 w-4 text-gray-600" />
+                  )}
+                  {copied ? 'Copied!' : 'Copy Link'}
+                </Button>
+              </div>
             </div>
 
             {/* Article Content */}
