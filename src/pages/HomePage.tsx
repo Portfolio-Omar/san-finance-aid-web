@@ -35,10 +35,10 @@ const HomePage = () => {
   ];
 
   const whyChooseUs = [
-    { title: 'Transparent Rates', description: 'No hidden fees, clear terms', icon: '📊' },
-    { title: 'Flexible Repayment', description: 'Weekly or monthly options', icon: '📅' },
-    { title: 'Expert Guidance', description: 'Professional financial advice', icon: '🎯' },
-    { title: 'Fast Processing', description: 'Quick approval and disbursement', icon: '⚡' }
+    { title: 'Integrity', description: 'Honesty and transparency in all dealings', icon: '🤝' },
+    { title: 'Responsibility', description: 'Responsible lending and financial education', icon: '🛡️' },
+    { title: 'Innovation', description: 'Continually improving our services', icon: '💡' },
+    { title: 'Customer Focus', description: 'Tailored solutions for your needs', icon: '👥' }
   ];
 
   const testimonials = [
@@ -73,10 +73,10 @@ const HomePage = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="mb-8">
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
-              Your Financial Aid
+              Your Financial Partner
             </h1>
             <p className="text-xl sm:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto animate-fade-in">
-              Fast, secure, and personalized financial support for individuals and businesses.
+              Empowering individuals and businesses with accessible financial solutions that promote economic growth and stability.
             </p>
           </div>
           
@@ -109,11 +109,19 @@ const HomePage = () => {
             </h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed animate-fade-in">
               <p>
-                SAN Finance stands as a premier online-based financial services provider, dedicated to transforming the way individuals and businesses access financial solutions. With years of experience in the financial sector, we have built our reputation on trust, transparency, and unwavering commitment to our clients' financial success. Our comprehensive suite of services encompasses flexible loan solutions, expert financial consulting, and personalized debt management strategies.
+                <strong className="text-foreground">Our Mission:</strong> To empower individuals and businesses with accessible financial solutions that promote economic growth and stability. SAN Finance is guided by integrity, transparency, innovation, customer focus, and responsibility.
               </p>
               <p>
-                At SAN Finance, we understand that every financial journey is unique. That's why we offer tailored solutions ranging from personal loans for immediate needs to sophisticated corporate financing for established businesses. Our team of experienced financial advisors works closely with each client to understand their specific requirements, ensuring that every financial product we offer aligns perfectly with their goals. We pride ourselves on our transparent approach—no hidden fees, clear terms, and honest communication throughout every step of your financial journey.
+                <strong className="text-foreground">Our Vision:</strong> To become Zambia's leading financial partner in sustainable lending and consultancy, pioneering Africa's name on the global financial stage.
               </p>
+              <p>
+                Founded in 2023 by Andrew Shota Daka and officially registered with PACRA, SAN Finance has served over 100 clients and actively engaged in community projects, especially financial literacy initiatives. As an African brand, we are committed to establishing our name, and Africa's, on the global financial stage.
+              </p>
+            </div>
+            <div className="mt-8">
+              <Button asChild className="gradient-navy text-white hover:opacity-90">
+                <Link to="/about">Learn More About Us</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -159,10 +167,10 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              Why Choose SAN Finance?
+              Our Core Values
             </h2>
             <p className="text-lg text-muted-foreground">
-              We're committed to providing transparent, flexible, and professional financial services.
+              The principles that guide everything we do at SAN Finance.
             </p>
           </div>
           

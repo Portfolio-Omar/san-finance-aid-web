@@ -11,21 +11,24 @@ const ServicesPage = () => {
       rate: '37% interest monthly',
       requirement: 'Requires collateral',
       description: 'Perfect for personal expenses, emergencies, or life events.',
-      features: ['Quick approval', 'Flexible terms', 'Competitive rates', 'Secure process']
+      features: ['Quick approval', 'Flexible terms', 'Competitive rates', 'Secure process'],
+      amounts: 'K700 - K20,000+'
     },
     {
       title: 'Business Loans',
       rate: '40% interest monthly',
       requirement: 'Collateral required',
       description: 'Fuel your business growth with our commercial financing solutions.',
-      features: ['Business expansion', 'Equipment purchase', 'Working capital', 'Inventory funding']
+      features: ['Business expansion', 'Equipment purchase', 'Working capital', 'Inventory funding'],
+      amounts: 'K700 - K20,000+'
     },
     {
       title: 'High Corporate Loans',
       rate: '27% interest monthly',
       requirement: 'For repeat clients - Secured via debentures',
       description: 'Exclusive corporate financing for established business relationships.',
-      features: ['Large loan amounts', 'Preferred rates', 'Priority processing', 'Dedicated support']
+      features: ['Large loan amounts', 'Preferred rates', 'Priority processing', 'Dedicated support'],
+      amounts: 'K20,000+'
     }
   ];
 
@@ -37,11 +40,11 @@ const ServicesPage = () => {
   ];
 
   const eligibilityRequirements = [
+    'Must be at least 18 years old',
     'Valid government-issued identification',
     'Completed loan application form',
-    'Demonstrated ability to repay',
-    'Appropriate security or debentures based on loan type',
-    'Proof of income or business revenue',
+    'Proof of income to ascertain repayment capacity',
+    'Appropriate collateral based on loan type',
     'Bank statements (last 3 months)'
   ];
 
@@ -88,7 +91,7 @@ const ServicesPage = () => {
               Money Lending Services
             </h2>
             <p className="text-lg text-gray-600">
-              Flexible loan solutions with competitive rates and transparent terms.
+              Flexible loan solutions from K700 to K20,000+ with competitive rates and transparent terms.
             </p>
           </div>
 
@@ -100,6 +103,7 @@ const ServicesPage = () => {
                   <CardTitle className="text-xl text-gray-900">{loan.title}</CardTitle>
                   <div className="space-y-2">
                     <Badge className="gradient-gold text-white">{loan.rate}</Badge>
+                    <Badge variant="outline" className="border-san-blue text-foreground">{loan.amounts}</Badge>
                     <p className="text-sm text-gray-600">{loan.requirement}</p>
                   </div>
                 </CardHeader>
@@ -127,15 +131,14 @@ const ServicesPage = () => {
               {repaymentTerms.map((term, index) => (
                 <div key={index} className="text-center p-4 border rounded-lg hover:shadow-md transition-shadow">
                   <h4 className="text-lg font-semibold text-gray-900 mb-2">{term.period}</h4>
-                  <div className="text-2xl font-bold text-blue-600 mb-2">{term.interest}</div>
+                  <div className="text-2xl font-bold text-san-blue mb-2">{term.interest}</div>
                   <p className="text-sm text-gray-600">{term.description}</p>
                 </div>
               ))}
             </div>
             <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-sm text-gray-700">
-                <strong>Note:</strong> Additional administrative fees may apply depending on the agreement. 
-                Repayment schedule can be weekly or monthly based on your preference.
+                <strong>Note:</strong> Repayment is due within 7 days of the due date. Penalties apply for late payments, and default may result in loan ineligibility. Custom payment plans available on request.
               </p>
             </div>
           </div>
@@ -152,6 +155,11 @@ const ServicesPage = () => {
                   <span className="text-gray-700">{requirement}</span>
                 </div>
               ))}
+            </div>
+            <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-gray-700">
+                <strong>Important:</strong> All loans are strictly collateral-based. We ensure responsible lending practices and provide financial education to all our clients.
+              </p>
             </div>
           </div>
         </section>
@@ -179,7 +187,7 @@ const ServicesPage = () => {
                   <ul className="space-y-2">
                     {service.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <span className="text-blue-500 mr-2">→</span>
+                        <span className="text-san-blue mr-2">→</span>
                         {benefit}
                       </li>
                     ))}
