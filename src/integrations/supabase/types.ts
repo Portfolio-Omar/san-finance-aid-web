@@ -9,6 +9,47 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      blog_comments: {
+        Row: {
+          author_email: string
+          author_name: string
+          blog_post_id: string
+          content: string
+          created_at: string
+          id: string
+          is_approved: boolean
+          updated_at: string
+        }
+        Insert: {
+          author_email: string
+          author_name: string
+          blog_post_id: string
+          content: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          updated_at?: string
+        }
+        Update: {
+          author_email?: string
+          author_name?: string
+          blog_post_id?: string
+          content?: string
+          created_at?: string
+          id?: string
+          is_approved?: boolean
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_comments_blog_post_id_fkey"
+            columns: ["blog_post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_posts: {
         Row: {
           content: string
@@ -45,6 +86,38 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_reactions: {
+        Row: {
+          blog_post_id: string
+          created_at: string
+          id: string
+          reaction_type: string
+          user_ip: string
+        }
+        Insert: {
+          blog_post_id: string
+          created_at?: string
+          id?: string
+          reaction_type: string
+          user_ip: string
+        }
+        Update: {
+          blog_post_id?: string
+          created_at?: string
+          id?: string
+          reaction_type?: string
+          user_ip?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blog_reactions_blog_post_id_fkey"
+            columns: ["blog_post_id"]
+            isOneToOne: false
+            referencedRelation: "blog_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -75,6 +148,45 @@ export type Database = {
           loan_type?: string | null
           message?: string
           phone?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          created_at: string
+          customer_email: string
+          customer_location: string | null
+          customer_name: string
+          id: string
+          is_approved: boolean
+          is_featured: boolean
+          rating: number | null
+          testimonial_content: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_email: string
+          customer_location?: string | null
+          customer_name: string
+          id?: string
+          is_approved?: boolean
+          is_featured?: boolean
+          rating?: number | null
+          testimonial_content: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_email?: string
+          customer_location?: string | null
+          customer_name?: string
+          id?: string
+          is_approved?: boolean
+          is_featured?: boolean
+          rating?: number | null
+          testimonial_content?: string
+          updated_at?: string
         }
         Relationships: []
       }

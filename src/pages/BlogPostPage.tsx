@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { Calendar, ArrowLeft, Share2, Facebook, Twitter, Linkedin, Copy, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { BlogReactions } from '@/components/BlogReactions';
+import { BlogComments } from '@/components/BlogComments';
+import { TestimonialForm } from '@/components/TestimonialForm';
 
 interface BlogPost {
   id: string;
@@ -64,6 +66,18 @@ const BlogPostPage = () => {
       month: 'long',
       day: 'numeric'
     });
+  };
+
+  const formatContent = (content: string) => {
+    return content
+      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-6 mb-3 text-gray-900">$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900">$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-8 mb-4 text-gray-900">$1</h1>')
+      .replace(/^\* (.*$)/gim, '<li class="ml-4">$1</li>')
+      .replace(/^\d+\. (.*$)/gim, '<li class="ml-4">$1</li>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+      .replace(/\n/g, '<br>');
   };
 
   const getCurrentUrl = () => {
@@ -145,7 +159,7 @@ const BlogPostPage = () => {
         </Link>
 
         {/* Article */}
-        <Card>
+        <Card className="mb-8">
           <CardContent className="p-8">
             {/* Featured Image */}
             {post.image_url && (
@@ -223,13 +237,29 @@ const BlogPostPage = () => {
             </div>
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none">
-              <div className="whitespace-pre-wrap leading-relaxed">
-                {post.content}
-              </div>
+            <div className="prose prose-lg max-w-none mb-8">
+              <div 
+                className="leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
+              />
             </div>
           </CardContent>
         </Card>
+
+        {/* Reactions */}
+        <div className="mb-8">
+          <BlogReactions postId={post.id} />
+        </div>
+
+        {/* Comments */}
+        <div className="mb-8">
+          <BlogComments postId={post.id} />
+        </div>
+
+        {/* Testimonial Form */}
+        <div className="mb-8">
+          <TestimonialForm />
+        </div>
       </div>
     </div>
   );

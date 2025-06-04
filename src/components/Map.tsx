@@ -25,8 +25,8 @@ const Map = () => {
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: [28.2833, -15.4167], // Lusaka, Zambia coordinates
-        zoom: 12,
-        pitch: 45,
+        zoom: 13,
+        pitch: 0,
       });
 
       // Add navigation controls
@@ -44,7 +44,7 @@ const Map = () => {
         .setLngLat([28.2833, -15.4167])
         .setPopup(
           new mapboxgl.default.Popup().setHTML(
-            '<div style="padding: 10px;"><h3 style="margin: 0 0 5px 0; color: #000;">SAN Finance</h3><p style="margin: 0; font-size: 14px;">Lusaka, Zambia</p></div>'
+            '<div style="padding: 15px; font-family: Arial, sans-serif;"><h3 style="margin: 0 0 8px 0; color: #000; font-size: 16px; font-weight: bold;">SAN Finance</h3><p style="margin: 0; font-size: 14px; color: #666;">Financial Services</p><p style="margin: 5px 0 0 0; font-size: 12px; color: #888;">Lusaka, Zambia</p></div>'
           )
         )
         .addTo(newMap);

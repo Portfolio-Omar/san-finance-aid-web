@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
-import { Upload, Save, Send } from 'lucide-react';
+import { Save, Send } from 'lucide-react';
+import { RichTextEditor } from './RichTextEditor';
 
 interface BlogPost {
   id?: string;
@@ -173,12 +174,11 @@ export const BlogEditor = ({ post, onSave }: BlogEditorProps) => {
 
         <div>
           <Label htmlFor="content">Content *</Label>
-          <Textarea
-            id="content"
+          <RichTextEditor
             value={formData.content}
-            onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-            placeholder="Full blog post content"
-            rows={10}
+            onChange={(content) => setFormData(prev => ({ ...prev, content }))}
+            placeholder="Write your blog post content here. Use the toolbar above for formatting."
+            rows={15}
           />
         </div>
 
