@@ -1,10 +1,10 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { WelcomePopup } from '@/components/WelcomePopup';
 import { FAQ } from '@/components/FAQ';
+import { TestimonialsList } from '@/components/TestimonialsList';
 
 const HomePage = () => {
   const services = [
@@ -186,33 +186,10 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Customer Testimonials */}
       <section className="py-16 lg:py-24 bg-accent/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Real experiences from satisfied customers.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300 animate-fade-in">
-                <CardContent className="p-6">
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <span key={i} className="text-yellow-400 text-xl">★</span>
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4 italic">"{testimonial.comment}"</p>
-                  <p className="font-semibold text-foreground">- {testimonial.name}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <TestimonialsList />
         </div>
       </section>
 

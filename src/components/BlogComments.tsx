@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,7 +40,6 @@ export const BlogComments = ({ postId }: BlogCommentsProps) => {
         .from('blog_comments')
         .select('*')
         .eq('blog_post_id', postId)
-        .eq('is_approved', true)
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -69,23 +67,30 @@ export const BlogComments = ({ postId }: BlogCommentsProps) => {
 
     setIsSubmitting(true);
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('blog_comments')
         .insert([{
           blog_post_id: postId,
           author_name: newComment.author_name,
           author_email: newComment.author_email,
           content: newComment.content,
-        }]);
+        }])
+        .select()
+        .single();
 
       if (error) throw error;
 
       toast({
-        title: "Comment Submitted!",
-        description: "Your comment has been submitted and is awaiting approval.",
+        title: "Comment Posted!",
+        description: "Your comment has been added successfully.",
       });
 
       setNewComment({ author_name: '', author_email: '', content: '' });
+      
+      // Add the new comment to the list immediately
+      if (data) {
+        setComments([data, ...comments]);
+      }
     } catch (error) {
       console.error('Error submitting comment:', error);
       toast({
