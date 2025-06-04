@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { BlogEditor } from '@/components/BlogEditor';
 import { BlogList } from '@/components/BlogList';
+import { AdminTestimonials } from '@/components/AdminTestimonials';
 
 interface ContactSubmission {
   id: string;
@@ -221,13 +222,14 @@ const AdminPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Admin Panel</h1>
-          <p className="text-muted-foreground">Manage customer enquiries, blog posts, and content</p>
+          <p className="text-muted-foreground">Manage customer enquiries, blog posts, testimonials, and content</p>
         </div>
 
         <Tabs defaultValue="enquiries" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 max-w-md">
+          <TabsList className="grid w-full grid-cols-3 max-w-lg">
             <TabsTrigger value="enquiries">Customer Enquiries</TabsTrigger>
             <TabsTrigger value="blog">Blog Management</TabsTrigger>
+            <TabsTrigger value="testimonials">Testimonials</TabsTrigger>
           </TabsList>
 
           <TabsContent value="enquiries" className="mt-6">
@@ -327,6 +329,10 @@ const AdminPage = () => {
                 />
               </div>
             )}
+          </TabsContent>
+
+          <TabsContent value="testimonials" className="mt-6">
+            <AdminTestimonials />
           </TabsContent>
         </Tabs>
 
